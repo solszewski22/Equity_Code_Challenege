@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
     <head>
         <meta charset="utf-8">
@@ -28,8 +28,7 @@
                         </div>
                         <div class="column-2">
                             <label for="phone">Phone</label>
-                            <span class="full-span"><input class="text-input" type="tel" id="phone" placeholder="XXX-XXX-XXXX" onInput="this.value = phoneFormat(this.value)"></span>
-                            <!-- onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" -->
+                            <span class="full-span"><input class="text-input" type="text" id="phone" placeholder="XXX-XXX-XXXX" onkeypress="return isNumeric(event)" onInput="this.value = phoneFormat(this.value)"></span>
                             <span class="spanError" id="phoneError"></span>
                         </div>
                     </div>
@@ -171,6 +170,7 @@
  </html>
 
 <script type="text/javascript">
+    // listen for 'US' radio button click
     document.getElementById('us_radio').addEventListener('click', function(e){
         if(document.getElementById('us_radio').checked){
             // user had selected 'US', show 'State' input and hide 'Province' input
@@ -180,12 +180,24 @@
     })
 
     document.getElementById('canada_radio').addEventListener('click', function(e){
+        // listen for 'Canada' radio button click
         if(document.getElementById('canada_radio').checked){
             // user had selected 'Canada'; show 'Province' input and hide 'State' input
             document.getElementById('province_form').hidden = false;
             document.getElementById("state_form").hidden = true;
         }
     })
+
+    // check with each keypress in the 'phone' field that the character between entered is a number
+    function isNumeric(event) {
+        var num = event.which || event.keycode;
+        if((num >= 48 && num <= 57)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     // function phoneFormat(input) { //returns (###) ###-####
     //     input = input.replace(/\D/g,'');
@@ -197,12 +209,15 @@
     // }
 
     function validateForm(event) {
+        // ensure all fields in the form are filled out properly
         event.preventDefault();
+        // keeps track of the validity status of the form
         let isValid = {retVal : true}
         
         // gather form fields
         const formFields = event.target.elements;
 
+        // store local variables for form data
         const name = formFields.name.value;
         const email = formFields.email.value;
         const phoneNum = formFields.phone.value;
@@ -212,6 +227,7 @@
         }
         const details = formFields.details.value;
 
+        // validate the fields in the form
         validateName(name, isValid);
         validateEmail(email, isValid);
         validatePhone(phoneNum, isValid);
@@ -220,14 +236,17 @@
 
         // formFields.name.value = "";
 
+        // if the form passes all requirement, show success message with form information
         if(isValid.retVal == true){
-            // setup info table
+            // setup the information table
             if(location.country == "US"){
                 document.getElementById('stateOrProvince').textContent = "State: ";
             }
             else {
                 document.getElementById('stateOrProvince').textContent = "Province: ";
             }
+
+            // set the content of the table that will show the form data
             document.getElementById('formName').textContent = name;
             document.getElementById('formEmail').textContent = email;
             document.getElementById('formPhoneNumber').textContent = phoneNum;
@@ -235,11 +254,13 @@
             document.getElementById('formRegion').textContent = location.region;
             document.getElementById('formDetails').textContent = details;
 
+            // hide the form and show the success message with the form data
             document.getElementById('formWrapper').style.display = "none";
             document.getElementById('submit_message').hidden = false;
         }
     }
 
+    // validate that the 'name' field is more that three characters long; if not, display error message
     function validateName() {
         var error = document.getElementById('nameError');
         if(arguments[0].length < 3){
@@ -251,8 +272,22 @@
         }
     }
 
+    // Regex breakdown: (line 284)
+    // /^ - start of new listen
+    // (?!\.) - local portion cannot start with a period
+    // (?!.*\.\.) - local portion cannot have two consecuative periods
+    // [A-Za-z0-9!#$%&'*+-/=?^_\`.{|}~]{1,64} - local portion can have any alphabetical, numeric, or 
+    //      special character listed between the brackets (all other characters are not acceptable) 
+    //      that is between 1 and 64 characters long
+    // +\@ - requires an '@' next
+    // (?!-) - domain portion cannot lead or end with a hyphen
+    // [A-Za-z0-9]{1,63} - domain portion can contain an alphabetic or numeric characters between 1 and 63 characters long
+    // +\. - requires a period to follow
+    // [A-Za-z]{2,4} - end of domain can be a alphabetic character between 2 and 4 characters long
+    // $/ - end of line
+
+    // validate that 'email' field is an acceptable email address according to RFC standards; if not display error message
     function validateEmail(){
-        // verify email is in a valid format -- how to check for @ symbol first!!!
         var emailError = document.getElementById('emailError');
         var mailformat = /^(?!\.)((?!.*\.\.)[A-Za-z0-9!#$%&'*+-/=?^_\`.{|}~]{1,64})+\@(?!-)([A-Za-z0-9]{1,63})+\.([A-Za-z]{2,4})$/
         if(arguments[0].match(mailformat)){
@@ -261,12 +296,11 @@
         else{
             emailError.textContent = "Please enter a valid email address.";
             arguments[1].retVal = false;
-
         }
     }
 
+    // verify that 'phone' is at 10 characters long; if not, display error message
     function validatePhone() {
-        //verify phone is in a valid format
         var phoneError = document.getElementById('phoneError');
         if(arguments[0].length < 10 || arguments[0].length > 10){
             phoneError.textContent = "Please provide a ten digit phone number."
@@ -277,13 +311,15 @@
         }
     }
 
+    // validate that a country and region has been selected
     function validateCountry() {
-        // verify country is selected
         var radioError = document.getElementById('radioError');
         if(document.getElementById('us_radio').checked){
+            // 'US' country has been selected
             arguments[0].country = "US";
             var states = document.getElementById('state');
             var selectedValue = states.options[states.selectedIndex].value;
+            // verify that a 'state' has been selected from the dropdown
             if(selectedValue == "selectState"){
                 radioError.textContent = "Please select a state.";
                 arguments[1].retVal = false;
@@ -295,9 +331,11 @@
         }
         else {
             if(document.getElementById('canada_radio').checked){
+                // 'Canada' country has been selected
                 arguments[0].country = "Canada";
                 var provinces = document.getElementById('province');
                 var selectedValue = provinces.options[provinces.selectedIndex].value;
+                // verify that a 'province' has been selected from the dropdown
                 if(selectedValue == "selectProvince"){
                     radioError.textContent = "Please select a province."
                     arguments[1].retVal = false;
@@ -314,11 +352,11 @@
         }
     }
 
+    // validate that 'additional details' has been filled in; if not, display error message
     function validateDetails(){
-        // verfiy additional details has text
         var detailsError = document.getElementById('detailsError');
         if(arguments[0].length < 1){
-            // details sections is empty
+            // details portion is empty
             detailsError.textContent = "Fill in additional details.";
             arguments[1].retVal = false;
         }
