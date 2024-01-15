@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles.css">
+
+        <title>Equity Form</title>
+
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="header">Equity Form</h1>
+            <div id="formWrapper" class="form-container">
+                <form id="form" onsubmit="validateForm(event)">
+                    <div class="row">
+                        <div class="full-col">
+                            <label for="name">Name</label>
+                            <span class="full-span"><input class="text-input" type="text" id="name"></span>
+                            <span class="spanError" id="nameError"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column-2">
+                            <label for="email">Email</label>
+                            <span class="full-span"><input class="text-input" type="text" id="email"></span>
+                            <span class="spanError" id="emailError"></span>
+                        </div>
+                        <div class="column-2">
+                            <label for="phone">Phone</label>
+                            <span class="full-span"><input class="text-input" type="tel" id="phone" placeholder="XXX-XXX-XXXX" onInput="this.value = phoneFormat(this.value)"></span>
+                            <!-- onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" -->
+                            <span class="spanError" id="phoneError"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column-2">
+                            <span class="spanError" id="radioError"></span><br/>
+                            <label for="country">Country</label> <br/>
+                            <input type="radio" id="us_radio" value="US" name="country">
+                            <label for="country">US</label>
+
+                            <input type="radio" id="canada_radio" value="Canada" name="country">
+                            <label for="country">Canada</label>
+                        </div>
+                        <div class="column-2">
+                            <div id="state_form" hidden>
+                                <br/>
+                                <label for="state">State</label>
+                                <select name="states" id="state"> 
+                                    <option value="selectState">Select a State</option>
+                                    <option value="Alabama">Alabama</option> 
+                                    <option value="Alaska">Alaska</option> 
+                                    <option value="Arizona">Arizona</option> 
+                                    <option value="Arkansas">Arkansas</option>
+                                    <option value="California">California</option> 
+                                    <option value="Colorado">Colorado</option> 
+                                    <option value="Connecticut">Connecticut</option>
+                                    <option value="Delaware">Delaware</option>
+                                    <option value="Florida">Florida</option>
+                                    <option value="Georgia">Georgia</option>
+                                    <option value="Hawaii">Hawaii</option>
+                                    <option value="Idaho">Idaho</option>
+                                    <option value="Illinois">Illinois</option>
+                                    <option value="Indiana">Indiana</option>
+                                    <option value="Iowa">Iowa</option>
+                                    <option value="Kansas">Kansas</option>
+                                    <option value="Kentucky">Kentucky</option>
+                                    <option value="Louisiana">Louisiana</option>
+                                    <option value="Maine">Maine</option>
+                                    <option value="Maryland">Maryland</option>
+                                    <option value="Massachusetts">Massachusetts</option>
+                                    <option value="Michigan">Michigan</option>
+                                    <option value="Minnesota">Minnesota</option>
+                                    <option value="Mississippi">Mississippi</option>
+                                    <option value="Missouri">Missouri</option>
+                                    <option value="Montana">Montana</option>
+                                    <option value="Nebraska">Nebraska</option>
+                                    <option value="Nevada">Nevada</option>
+                                    <option value="New Hampshire">New Hampshire</option>
+                                    <option value="New Jersey">New Jersey</option>
+                                    <option value="New Mexico">New Mexico</option>
+                                    <option value="New York">New York</option>
+                                    <option value="North Carolina">North Carolina</option>
+                                    <option value="North Dakota">North Dakota</option>
+                                    <option value="Ohio">Ohio</option>
+                                    <option value="Oklahoma">Oklahoma</option>
+                                    <option value="Oregon">Oregon</option>
+                                    <option value="Pennsylvania">Pennsylvania</option>
+                                    <option value="Rhode Island">Rhode Island</option>
+                                    <option value="South Carolina">South Carolina</option>
+                                    <option value="South Dakota">South Dakota</option>
+                                    <option value="Tennessee">Tennessee</option>
+                                    <option value="Texas">Texas</option>
+                                    <option value="Utah">Utah</option>
+                                    <option value="Vermont">Vermont</option>
+                                    <option value="Virginia">Virginia</option>
+                                    <option value="Washington">Washington</option>
+                                    <option value="West Virginia">West Virginia</option>
+                                    <option value="Wisconsin">Wisconsin</option>
+                                    <option value="Wyoming">Wyoming</option>
+                                </select>
+                            </div>
+                            <div id="province_form" hidden>
+                                <br/>
+                                <label for="province">Province</label>
+                                <select name="provinces" id="province"> 
+                                    <option value="selectProvince">Select a Province</option>
+                                    <option value="Alberta">Alberta</option> 
+                                    <option value="British Columbia">British Columbia</option> 
+                                    <option value="Manitoba">Manitoba</option> 
+                                    <option value="New Brunswick">New Brunswick</option>
+                                    <option value="Newfoundland & Labrador">Newfoundland & Labrador</option>
+                                    <option value="Nova Scotia">Nova Scotia</option>
+                                    <option value="Ontario">Ontario</option>
+                                    <option value="Prince Edward Island">Prince Edward Island</option>
+                                    <option value="Quebec">Quebec</option>
+                                    <option value="Saskatchewan">Saskatchewan</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="full-col">
+                            <span class="spanError" id="detailsError"></span><br>
+                            <label for="details">Additional Details</label><br/>
+                            <span class="full-span"><textarea class="text-input" type="text" id="details" rows="5"></textarea></span>
+                        </div>
+                    </div>
+                    <div class="row btn">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div hidden id="submit_message">
+                <h2>Thank you for your submission!</h2>
+                <p>Below is a copy of your answers.</p>
+                <table>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>Name: </td>
+                        <td id="formName"></td>
+                    </tr>
+                    <tr>
+                        <td>Email: </td>
+                        <td id="formEmail"></td>
+                    </tr>
+                    <tr>
+                        <td>Phone Number: </td>
+                        <td id="formPhoneNumber"></td>
+                    </tr>
+                    <tr>
+                        <td>Country: </td>
+                        <td id="formCountry"></td>
+                    </tr>
+                    <tr>
+                        <td id="stateOrProvince"></td>
+                        <td id="formRegion"></td>
+                    </tr>
+                    <tr>
+                        <td>Additional Details: </td>
+                        <td id="formDetails"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </body>
+ </html>
+
+<script type="text/javascript">
+    document.getElementById('us_radio').addEventListener('click', function(e){
+        if(document.getElementById('us_radio').checked){
+            // user had selected 'US', show 'State' input and hide 'Province' input
+            document.getElementById("state_form").hidden = false;
+            document.getElementById("province_form").hidden = true;
+        }
+    })
+
+    document.getElementById('canada_radio').addEventListener('click', function(e){
+        if(document.getElementById('canada_radio').checked){
+            // user had selected 'Canada'; show 'Province' input and hide 'State' input
+            document.getElementById('province_form').hidden = false;
+            document.getElementById("state_form").hidden = true;
+        }
+    })
+
+    // function phoneFormat(input) { //returns (###) ###-####
+    //     input = input.replace(/\D/g,'');
+    //     var size = input.length;
+    //     if (size>0) {input="("+input}
+    //     if (size>3) {input=input.slice(0,4)+") "+input.slice(4,11)}
+    //     if (size>6) {input=input.slice(0,9)+"-" +input.slice(9)}
+    //     return input;
+    // }
+
+    function validateForm(event) {
+        event.preventDefault();
+        let isValid = {retVal : true}
+        
+        // gather form fields
+        const formFields = event.target.elements;
+
+        const name = formFields.name.value;
+        const email = formFields.email.value;
+        const phoneNum = formFields.phone.value;
+        let location = {
+            country : "",
+            region : ""
+        }
+        const details = formFields.details.value;
+
+        validateName(name, isValid);
+        validateEmail(email, isValid);
+        validatePhone(phoneNum, isValid);
+        validateCountry(location, isValid);
+        validateDetails(details, isValid);
+
+        // formFields.name.value = "";
+
+        if(isValid.retVal == true){
+            // setup info table
+            if(location.country == "US"){
+                document.getElementById('stateOrProvince').textContent = "State: ";
+            }
+            else {
+                document.getElementById('stateOrProvince').textContent = "Province: ";
+            }
+            document.getElementById('formName').textContent = name;
+            document.getElementById('formEmail').textContent = email;
+            document.getElementById('formPhoneNumber').textContent = phoneNum;
+            document.getElementById('formCountry').textContent = location.country;
+            document.getElementById('formRegion').textContent = location.region;
+            document.getElementById('formDetails').textContent = details;
+
+            document.getElementById('formWrapper').style.display = "none";
+            document.getElementById('submit_message').hidden = false;
+        }
+    }
+
+    function validateName() {
+        var error = document.getElementById('nameError');
+        if(arguments[0].length < 3){
+            error.textContent = "Name must be a minimum of three characters.";
+            arguments[1].retVal = false;
+        }
+        else{
+            error.textContent="";
+        }
+    }
+
+    function validateEmail(){
+        // verify email is in a valid format -- how to check for @ symbol first!!!
+        var emailError = document.getElementById('emailError');
+        var mailformat = /^(?!\.)((?!.*\.\.)[A-Za-z0-9!#$%&'*+-/=?^_\`.{|}~]{1,64})+\@(?!-)([A-Za-z0-9]{1,63})+\.([A-Za-z]{2,4})$/
+        if(arguments[0].match(mailformat)){
+            emailError.textContent = "";
+        }
+        else{
+            emailError.textContent = "Please enter a valid email address.";
+            arguments[1].retVal = false;
+
+        }
+    }
+
+    function validatePhone() {
+        //verify phone is in a valid format
+        var phoneError = document.getElementById('phoneError');
+        if(arguments[0].length < 10 || arguments[0].length > 10){
+            phoneError.textContent = "Please provide a ten digit phone number."
+            arguments[1].retVal = false;
+        }
+        else {
+            phoneError.textContent = "";
+        }
+    }
+
+    function validateCountry() {
+        // verify country is selected
+        var radioError = document.getElementById('radioError');
+        if(document.getElementById('us_radio').checked){
+            arguments[0].country = "US";
+            var states = document.getElementById('state');
+            var selectedValue = states.options[states.selectedIndex].value;
+            if(selectedValue == "selectState"){
+                radioError.textContent = "Please select a state.";
+                arguments[1].retVal = false;
+            }
+            else {
+                radioError.textContent = "";
+                arguments[0].region = selectedValue;
+            }
+        }
+        else {
+            if(document.getElementById('canada_radio').checked){
+                arguments[0].country = "Canada";
+                var provinces = document.getElementById('province');
+                var selectedValue = provinces.options[provinces.selectedIndex].value;
+                if(selectedValue == "selectProvince"){
+                    radioError.textContent = "Please select a province."
+                    arguments[1].retVal = false;
+                }
+                else {
+                    radioError.textContent = "";
+                    arguments[0].region = selectedValue;
+                }
+            }
+            else {
+                radioError.textContent = "Please select a country.";
+                arguments[1].retVal = false;
+            }
+        }
+    }
+
+    function validateDetails(){
+        // verfiy additional details has text
+        var detailsError = document.getElementById('detailsError');
+        if(arguments[0].length < 1){
+            // details sections is empty
+            detailsError.textContent = "Fill in additional details.";
+            arguments[1].retVal = false;
+        }
+        else {
+            detailsError.textContent = "";
+        }
+    }
+</script>

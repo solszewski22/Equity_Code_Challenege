@@ -1,0 +1,134 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: auto;
+}
+
+.container {
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  background-color: #0d6bbe;
+  color: white;
+  padding: 30px 10px 30px 10px;
+  margin: 0px 0px 0px 0px;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+form {
+  width: 50%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+  padding-top: 10px;
+}
+
+.column-2 {
+  float: left;
+  width: 50%;
+}
+
+.full-span {
+  display: block;
+  overflow: hidden;
+  padding-right: 30px;
+}
+.full-span input {
+  width: 100%;
+}
+.full-span textarea {
+  width: 100%;
+}
+
+.btn {
+  float: right;
+  padding-right: 30px;
+}
+
+.countryInput {
+  list-style-type: none;
+}
+
+.text-input {
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(229, 227, 227);
+  padding: 10px;
+}
+
+.text-input:focus {
+  outline: none !important;
+  border: 2px solid #0275d8;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(2, 116, 216, 0.6862745098);
+  background-color: transparent;
+}
+
+select {
+  cursor: pointer;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: medium;
+  margin-left: 10px;
+  padding: 5px;
+}
+
+select:focus {
+  outline: none !important;
+  border: 2px solid #0275d8;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(2, 116, 216, 0.6862745098);
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  background-color: #0275d8;
+  color: white;
+  padding: 5px 15px 5px 15px;
+  text-align: center;
+  font-size: medium;
+}
+
+button:hover {
+  background-color: #368ad3;
+  cursor: pointer;
+}
+
+.spanError {
+  font-size: small;
+  color: red;
+}
+
+#submit_message {
+  text-align: center;
+}
+#submit_message table {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  table-layout: auto;
+  width: 50%;
+}
+#submit_message table th, #submit_message table td {
+  padding: 5px 10px 5px 10px;
+  vertical-align: top;
+}
+#submit_message table #formDetails, #submit_message table #formEmail {
+  word-wrap: break-word;
+}
+
+@media only screen and (max-width: 600px) {
+  .column-2 {
+    width: 100%;
+  }
+}/*# sourceMappingURL=styles.css.map */
