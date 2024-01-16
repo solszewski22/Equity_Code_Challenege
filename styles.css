@@ -77,7 +77,7 @@ form {
 select {
   cursor: pointer;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-size: medium;
+  font-size: small;
   margin-left: 10px;
   padding: 5px;
 }
@@ -117,14 +117,20 @@ button:hover {
   margin-right: auto;
   text-align: left;
   table-layout: auto;
-  width: 50%;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 80%;
 }
 #submit_message table th, #submit_message table td {
   padding: 5px 10px 5px 10px;
   vertical-align: top;
+  width: 10%;
+}
+#submit_message table #formName, #submit_message table #formEmail, #submit_message table #formPhoneNumber, #submit_message table #formCountry, #submit_message table #formRegion, #submit_message table #formDetails {
+  width: 30%;
 }
 #submit_message table #formDetails, #submit_message table #formEmail {
-  word-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 
 @media only screen and (max-width: 600px) {

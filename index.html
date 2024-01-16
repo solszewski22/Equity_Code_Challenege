@@ -28,7 +28,7 @@
                         </div>
                         <div class="column-2">
                             <label for="phone">Phone</label>
-                            <span class="full-span"><input class="text-input" type="text" id="phone" placeholder="XXX-XXX-XXXX" onkeypress="return isNumeric(event)" onInput="this.value = phoneFormat(this.value)"></span>
+                            <span class="full-span"><input class="text-input" type="text" id="phone" onkeypress="return isNumeric(event)"></span>
                             <span class="spanError" id="phoneError"></span>
                         </div>
                     </div>
@@ -198,15 +198,6 @@
             return false;
         }
     }
-
-    // function phoneFormat(input) { //returns (###) ###-####
-    //     input = input.replace(/\D/g,'');
-    //     var size = input.length;
-    //     if (size>0) {input="("+input}
-    //     if (size>3) {input=input.slice(0,4)+") "+input.slice(4,11)}
-    //     if (size>6) {input=input.slice(0,9)+"-" +input.slice(9)}
-    //     return input;
-    // }
 
     function validateForm(event) {
         // ensure all fields in the form are filled out properly
